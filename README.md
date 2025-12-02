@@ -8,8 +8,8 @@ Follow these steps to set up and run the application and the test suite locally.
 ### 1. Setup Environment
 Clone the repository and install the dependencies:
 ```
-git clone <your-repo-link>
-cd <your-repo-name>
+git clone https://github.com/Derek2596/llm-patch-notes-generator.git
+cd llm-patch-notes-generator
 pip install -r requirements.txt
 ```
 ### 2. Configure Environment Variables
