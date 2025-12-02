@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patch Notes Generator UI</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 40px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4a4a4a;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding doesn't affect total width */
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #output {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #e9ecef;
+            white-space: pre-wrap; /* Keeps formatting from the LLM output */
+            min-height: 150px;
+        }
+        .meta-info {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📝 LLM Patch Notes Generator</h1>
+
+    <label for="bullets">Development Bullet Points (one per line, e.g., "added user profile", "fixed minor UI bug"):</label>
+    <textarea id="bullets" rows="10" placeholder="Enter your commits or changes here..."></textarea>
+
+    <label for="version">Version:</label>
+    <input type="text" id="version" value="1.0.0">
+    
+    <button onclick="generateNotes()">Generate Patch Notes</button>
+
+    <h2 style="margin-top: 30px;">Generated Output:</h2>
+    <div id="output">
+        [Patch notes will appear here...]
+    </div>
+    
+    <div class="meta-info">
+        <p>Latency: <span id="latency">N/A</span></p>
+    </div>
+</div>
+
+<script>
+    const API_URL = "http://127.0.0.1:8000/generate";
+
+    async function generateNotes() {
+        const bullets = document.getElementById('bullets').value;
+        const version = document.getElementById('version').value;
+        const outputDiv = document.getElementById('output');
+        const latencySpan = document.getElementById('latency');
+
+        // Clear previous output
+        outputDiv.innerHTML = 'Generating...';
+        outputDiv.classList.remove('error');
+        latencySpan.textContent = 'N/A';
+
+        if (!bullets.trim()) {
+            outputDiv.innerHTML = '<span class="error">Please enter some bullet points.</span>';
+            return;
+        }
+
+        const requestBody = {
+            bullets: bullets,
+            style: "concise", // Fixed as per your LLM implementation
+            version: version || null
+        };
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                // Handle HTTP error codes (e.g., 400 from prompt injection, 413 from length check)
+                outputDiv.innerHTML = `<span class="error">Error (${response.status}): ${data.detail || response.statusText}</span>`;
+                return;
+            }
+
+            // Success: Display patch notes
+            outputDiv.textContent = data.patch_notes;
+            
+            // Display metadata from the FastAPI response
+            if (data.meta) {
+                latencySpan.textContent = `${data.meta.latency_ms.toFixed(2)} ms`;
+            }
+
+        } catch (error) {
+            outputDiv.innerHTML = `<span class="error">Network Error: Could not reach the API at ${API_URL}. Is your server running?</span>`;
+            console.error('Fetch error:', error);
+        }
+    }
+</script>
+
+</body>
+</html>

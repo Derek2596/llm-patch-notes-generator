@@ -1,0 +1,62 @@
+[
+  {
+    "input": "added search feature\nimproved battery life",
+    "expect": { "Added": true, "Changed": true, "Removed": false }
+  },
+  {
+    "input": "removed unused import",
+    "expect": { "Added": false, "Changed": false, "Removed": true }
+  },
+  {
+    "input": "refactored database module",
+    "expect": { "Added": false, "Changed": true, "Removed": false }
+  },
+  {
+    "input": "Implemented dark mode support. Fixed critical bug.",
+    "expect": { "Added": true, "Changed": true, "Removed": false }
+  },
+  {
+    "input": "added new user profile photo upload\nchanged font family to inter\nremoved old authentication tokens",
+    "expect": { "Added": true, "Changed": true, "Removed": true }
+  },
+  {
+    "input": "fixed login screen padding\nimproved error handling",
+    "expect": { "Added": false, "Changed": true, "Removed": false }
+  },
+  {
+    "input": "REMOVED ALL LEGACY API ENDPOINTS",
+    "expect": { "Added": false, "Changed": false, "Removed": true }
+  },
+  {
+    "input": "Added a new 'About Us' page.",
+    "expect": { "Added": true, "Changed": false, "Removed": false }
+  },
+  {
+    "input": "",
+    "expect": { "Added": false, "Changed": false, "Removed": false }
+  },
+  {
+    "input": "removed temporary file caching",
+    "expect": { "Added": false, "Changed": false, "Removed": true }
+  },
+  {
+    "input": "Added feature X\nChanged feature Y\nRemoved feature Z",
+    "expect": { "Added": true, "Changed": true, "Removed": true }
+  },
+  {
+    "input": "Updated dependency A from v1.0 to v1.1",
+    "expect": { "Added": false, "Changed": true, "Removed": false }
+  },
+  {
+    "input": "A new module for logging has been added\nFixed a security vulnerability\nDeprecating old configuration file",
+    "expect": { "Added": true, "Changed": true, "Removed": true }
+  },
+  {
+    "input": "minor text corrections in documentation",
+    "expect": { "Added": false, "Changed": true, "Removed": false }
+  },
+  {
+    "input": "added two factor authentication\nremoved support for old browsers",
+    "expect": { "Added": true, "Changed": false, "Removed": true }
+  }
+]
