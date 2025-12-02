@@ -15,10 +15,10 @@ pip install -r requirements.txt
 ### 2. Configure Environment Variables
 Create a .env file using the .env.example and replace YOUR_API_KEY with your actual Gemini API key.
 
-```.env``` :
+```.env.example``` :
 ```
-# Replace YOUR_API_KEY with your actual Gemini API key
 GEMINI_API_KEY=YOUR_API_KEY
+GEMINI_MODEL=gemini-2.5-flash
 ```
 
 ### 3. Run the FastAPI Service
