@@ -32,3 +32,10 @@ python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 ### 4. Open the App
 Go to [127.0.0.1:8000](127.0.0.1:8000) in your browser.
+
+### 5. Run the Tests
+Simply run:
+```
+python tests/run_tests.py
+```
+You should see the POSTs to /generate in the server logs
