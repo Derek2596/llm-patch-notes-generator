@@ -2,6 +2,8 @@
 
 This project implements a small FastAPI application that leverages the Gemini API to transform unstructured, concise development bullet points into formatted, structured patch notes suitable for release documentation.
 
+### Video: https://www.youtube.com/watch?v=u6iR4qT_JPk
+
 # Repro & Quick Start
 Follow these steps to set up and run the application and the test suite locally.
 
